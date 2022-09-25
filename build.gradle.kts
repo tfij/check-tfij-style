@@ -1,9 +1,12 @@
 plugins {
     java
+    id("pl.allegro.tech.build.axion-release") version "1.14.1"
 }
 
 group = "pl.tfij"
-version = "1.0-SNAPSHOT"
+scmVersion {
+    versionCreator("versionWithBranch")
+}
 
 repositories {
     mavenCentral()
