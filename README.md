@@ -1,5 +1,5 @@
 # check-tfij-style
-A set of additional check to use with checkstyle.
+A set of additional checks to use with checkstyle.
 
 ## Checks
 
@@ -7,9 +7,49 @@ A set of additional check to use with checkstyle.
 
 When parameters are on multiple lines, verify if these lines are aligned.
 
+#### Valid formatting
+
+```
+public SimpleClass(String foo,
+                   String bar,
+                   String baz) {
+}
+```
+
+#### Not valid formatting
+
+```
+public SimpleClass(String foo,
+            String bar,
+            String baz) {
+}
+```
+
 ### Method Parameter Lines Check
 
 Verify if method arguments are either a single line or they are broken up into multiple lines, each on an individual line.
+
+#### Valid formatting
+
+```
+public SimpleClass(String foo, String bar, String baz) {
+}
+```
+
+```
+public SimpleClass(String foo,
+                   String bar,
+                   String baz) {
+}
+```
+
+#### Not valid formatting
+
+```
+public SimpleClass(String foo, String bar,
+                   String baz) {
+}
+```
 
 ## Configuration
 
@@ -31,7 +71,7 @@ Verify if method arguments are either a single line or they are broken up into m
 ### Example maven-checkstyle-plugin configuration
 
 IMPORTANT: To use this check with `maven-checkstyle-plugin`,
-you have to add the library as maven dependency to the plugin.
+you have to add the library as a maven dependency to the plugin.
 
 ```xml
 <plugin>
