@@ -45,7 +45,7 @@ publishing {
                     fromResolutionOf("runtimeClasspath")
                 }
                 usage("java-runtime") {
-                    fromResolutionOf("");
+                    fromResolutionResult();
                 }
             }
             pom {
