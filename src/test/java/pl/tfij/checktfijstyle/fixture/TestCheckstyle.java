@@ -35,7 +35,7 @@ public class TestCheckstyle {
     }
 
     private static File checkedFile(String name) {
-        return new File("src/test/java/pl/tfij/checktfijstyle/sample/" + name);
+        return new File("src/test/resources/sample/" + name);
     }
 
     private static DefaultConfiguration config(Configuration checkConfig) {
@@ -70,20 +70,53 @@ public class TestCheckstyle {
         }
     }
 
-    public void assertViolation(int line, int col, String message) {
+    public void assertViolationCount(int expectedNumberOfViolations) {
+        Assertions.assertEquals(
+                expectedNumberOfViolations,
+                errors.size(),
+                String.format(
+                        "Expect %s violations but found %s: %s",
+                        expectedNumberOfViolations,
+                        errors.size(),
+                        errorsInFile()
+                ));
+    }
+
+    public void assertViolation(int line, int col, String expectedMessage) {
         var found = errors.stream()
                 .filter(e -> e.getLine() == line)
                 .filter(e -> e.getColumn() == col)
-                .filter(e -> e.getMessage().equals(message))
+                .filter(e -> e.getMessage().equals(expectedMessage))
                 .findFirst();
         Assertions.assertTrue(
                 found.isPresent(),
-                String.format(
-                        "Expect `%s` message for %s line and %s col but found %s",
-                        message,
-                        line,
-                        col,
-                        errors.stream().filter(e -> e.getLine() == line).filter(e -> e.getColumn() == col).map(AuditEvent::getMessage).collect(toList())));
+                assertionErrorMessage(line, col, expectedMessage));
+    }
+
+    private String assertionErrorMessage(int line, int col, String message) {
+        List<String> errorsInLine = errors.stream().filter(e -> e.getLine() == line).filter(e -> e.getColumn() == col).map(AuditEvent::getMessage).collect(toList());
+        if (!errorsInLine.isEmpty()) {
+            return String.format(
+                    "Expect `%s` message for %s line and %s col but found %s",
+                    message,
+                    line,
+                    col,
+                    errorsInLine);
+        } else {
+            return String.format(
+                    "Expect `%s` message for %s line and %s col but no violation found. Violations for file: %s",
+                    message,
+                    line,
+                    col,
+                    errorsInFile());
+        }
+    }
+
+    private List<String> errorsInFile() {
+        List<String> errorsInFile = errors.stream()
+                .map(auditEvent -> String.format("%s:%s %s", auditEvent.getLine(), auditEvent.getColumn(), auditEvent.getMessage()))
+                .collect(toList());
+        return errorsInFile;
     }
 
     public void assertNoViolations() {
