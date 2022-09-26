@@ -63,6 +63,16 @@ public SimpleClass(String foo, String bar,
 
 ## Configuration
 
+### Maven dependency
+
+```xml
+<dependency>
+    <groupId>pl.tfij</groupId>
+    <artifactId>check-tfij-style</artifactId>
+    <version>1.1.0</version>
+</dependency>
+```
+
 ### Example checkstyle configuration
 
 ```xml
@@ -108,7 +118,7 @@ you have to add the library as a maven dependency to the plugin.
         <dependency>
             <groupId>pl.tfij</groupId>
             <artifactId>check-tfij-style</artifactId>
-            <version>1.0</version>
+            <version>1.1.0</version>
         </dependency>
     </dependencies>
 </plugin>
