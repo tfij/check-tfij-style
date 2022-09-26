@@ -1,5 +1,5 @@
 # check-tfij-style
-A set of additional checks to use with checkstyle.
+A set of additional checks to use with [checkstyle](https://checkstyle.sourceforge.io/index.html).
 
 ## Checks
 
@@ -7,7 +7,9 @@ A set of additional checks to use with checkstyle.
 
 When parameters are on multiple lines, verify if these lines are aligned.
 
-#### Valid formatting
+#### Violations
+
+##### Valid formatting
 
 ```
 public SimpleClass(String foo,
@@ -16,7 +18,7 @@ public SimpleClass(String foo,
 }
 ```
 
-#### Not valid formatting
+##### Not valid formatting
 
 ```
 public SimpleClass(String foo,
@@ -29,7 +31,15 @@ public SimpleClass(String foo,
 
 Verify if method arguments are either a single line or they are broken up into multiple lines, each on an individual line.
 
-#### Valid formatting
+#### Parameters
+
+| parameter name  | type    | default value | description                  |
+|-----------------|---------|---------------|------------------------------|
+| allowSingleLine | boolean | true          | allow single lines arguments |
+
+#### Violations
+
+##### Valid formatting
 
 ```
 public SimpleClass(String foo, String bar, String baz) {
@@ -43,7 +53,7 @@ public SimpleClass(String foo,
 }
 ```
 
-#### Not valid formatting
+##### Not valid formatting
 
 ```
 public SimpleClass(String foo, String bar,
