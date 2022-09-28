@@ -1,16 +1,16 @@
 package pl.tfij.checktfijstyle.checks;
 
-import com.google.common.collect.Streams;
 import com.puppycrawl.tools.checkstyle.StatelessCheck;
 import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
+
+import static pl.tfij.checktfijstyle.checks.DetailASTUtil.getFirstChild;
+import static pl.tfij.checktfijstyle.checks.DetailASTUtil.streamAll;
 
 @StatelessCheck
 public class MethodParameterLinesCheck extends AbstractCheck {
@@ -76,40 +76,6 @@ public class MethodParameterLinesCheck extends AbstractCheck {
         }
     }
 
-    private static DetailAST getFirstChild(DetailAST ast, int type) {
-        return stream(ast.getFirstChild())
-                .filter(it -> it.getType() == type)
-                .findFirst()
-                .get();
-    }
-
-    public static Stream<DetailAST> stream(DetailAST start) {
-        return Streams.stream(iterate(start));
-    }
-
-    private static Stream<DetailAST> streamAll(DetailAST start, int type) {
-        return stream(start)
-                .filter(c -> c.getType() == type);
-    }
-
-    private static Iterator<DetailAST> iterate(DetailAST start) {
-        return new Iterator<>() {
-            private DetailAST c = start;
-
-            @Override
-            public boolean hasNext() {
-                return c != null;
-            }
-
-            @Override
-            public DetailAST next() {
-                DetailAST r = c;
-                c = r.getNextSibling();
-                return r;
-            }
-        };
-    }
-
     private static boolean allDifferent(List<Integer> lines) {
         return new HashSet<>(lines).size() == lines.size();
     }
@@ -117,4 +83,5 @@ public class MethodParameterLinesCheck extends AbstractCheck {
     private static boolean allSame(List<Integer> lines) {
         return new HashSet<>(lines).size() == 1;
     }
+
 }

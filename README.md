@@ -1,11 +1,22 @@
 # check-tfij-style
 A set of additional checks to use with [checkstyle](https://checkstyle.sourceforge.io/index.html).
 
+## Content
+* [Content](#Content)
+* [Checks](#Checks)
+  - [MethodParameterAlignmentCheck](#MethodParameterAlignmentCheck)
+  - [MethodParameterLinesCheck](#MethodParameterLinesCheck)
+  - [MethodCallParameterLinesCheck](#MethodCallParameterLinesCheck)
+* [Configuration](#Configuration)
+  - [Maven dependency](#Maven-dependency)
+  - [Example checkstyle configuration](#Example-checkstyle-configuration)
+  - [Example maven plugin configuration](#Example-maven-plugin-configuration)
+
 ## Checks
 
-### Method Parameter Alignment Check
+### MethodParameterAlignmentCheck
 
-When parameters are on multiple lines, verify if these lines are aligned.
+When parameters in method/constructor declaration are on multiple lines, verify if these lines are aligned.
 
 #### Violations
 
@@ -27,9 +38,10 @@ public SimpleClass(String foo,
 }
 ```
 
-### Method Parameter Lines Check
+### MethodParameterLinesCheck
 
-Verify if method arguments are either a single line or they are broken up into multiple lines, each on an individual line.
+Verify if method/constructor arguments in declaration are either a single line or they are broken up into multiple lines, 
+each on an individual line.
 
 #### Parameters
 
@@ -61,6 +73,36 @@ public SimpleClass(String foo, String bar,
 }
 ```
 
+### MethodCallParameterLinesCheck
+
+Verify if call method/constructor arguments are either a single line or they are broken up into multiple lines,
+each on an individual line.
+
+#### Parameters
+
+| parameter name | type     | default value | description                                                                                             |
+|----------------|----------|---------------|---------------------------------------------------------------------------------------------------------|
+| ignoreMethods  | String[] | []            | allows to ignore methods from verification, e.g. `Map.of` method, or `of` method, or `Foo` constructor. |
+
+##### Valid formatting
+
+```
+int i = foo(1, 2, 3);
+```
+
+```
+int i = foo(1, 
+    2, 
+    3);
+```
+
+##### Not valid formatting
+
+```
+int i = foo(1, 2, 
+    3);
+```
+
 ## Configuration
 
 ### Maven dependency
@@ -88,9 +130,9 @@ public SimpleClass(String foo, String bar,
 </module>
 ```
 
-### Example maven-checkstyle-plugin configuration
+### Example maven plugin configuration
 
-IMPORTANT: To use this check with `maven-checkstyle-plugin`,
+To use check from this library with `maven-checkstyle-plugin`,
 you have to add the library as a maven dependency to the plugin.
 
 ```xml
