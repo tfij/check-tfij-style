@@ -16,7 +16,7 @@ import static java.util.stream.Collectors.toMap;
 @StatelessCheck
 public class MethodParameterAlignmentCheck extends AbstractCheck {
 
-    public static final String MSG_PARAM_ALIGNMENT = "method.params.alignment";
+    public static final String MSG_PARAM_ALIGNMENT = "method.params.lines-alignment";
 
     @Override
     public int[] getDefaultTokens() {

@@ -1,4 +1,4 @@
-package pl.tfij.checktfijstyle;
+package pl.tfij.checktfijstyle.checks;
 
 import org.junit.jupiter.api.Test;
 import pl.tfij.checktfijstyle.checks.MethodParameterAlignmentCheck;
@@ -20,11 +20,11 @@ class MethodParameterAlignmentCheckTest {
         checkstyle.check("paramsAlignmentInDeclaration/BadMethodParamAlignments.java");
 
         checkstyle.assertViolationCount(5);
-        checkstyle.assertViolation(4, 5, "Lines in method parameter list declaration must be aligned.");
-        checkstyle.assertViolation(8, 5, "Lines in method parameter list declaration must be aligned.");
-        checkstyle.assertViolation(12, 5, "Lines in method parameter list declaration must be aligned.");
-        checkstyle.assertViolation(16, 5, "Lines in method parameter list declaration must be aligned.");
-        checkstyle.assertViolation(19, 5, "Lines in method parameter list declaration must be aligned.");
+        checkstyle.assertViolation(4, 5, "Lines in method parameter declaration list must be aligned.");
+        checkstyle.assertViolation(8, 5, "Lines in method parameter declaration list must be aligned.");
+        checkstyle.assertViolation(12, 5, "Lines in method parameter declaration list must be aligned.");
+        checkstyle.assertViolation(16, 5, "Lines in method parameter declaration list must be aligned.");
+        checkstyle.assertViolation(19, 5, "Lines in method parameter declaration list must be aligned.");
     }
 
     @Test
@@ -32,6 +32,6 @@ class MethodParameterAlignmentCheckTest {
         checkstyle.check("paramsAlignmentInDeclaration/BadRecordParamAlignments.java");
 
         checkstyle.assertViolationCount(1);
-        checkstyle.assertViolation(4, 1, "Lines in method parameter list declaration must be aligned.");
+        checkstyle.assertViolation(4, 1, "Lines in method parameter declaration list must be aligned.");
     }
 }

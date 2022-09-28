@@ -1,4 +1,4 @@
-package pl.tfij.checktfijstyle;
+package pl.tfij.checktfijstyle.checks;
 
 import org.junit.jupiter.api.Test;
 import pl.tfij.checktfijstyle.checks.MethodCallParameterLinesCheck;

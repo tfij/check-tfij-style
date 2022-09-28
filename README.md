@@ -6,6 +6,7 @@ A set of additional checks to use with [checkstyle](https://checkstyle.sourcefor
 * [Checks](#Checks)
   - [MethodParameterAlignmentCheck](#MethodParameterAlignmentCheck)
   - [MethodParameterLinesCheck](#MethodParameterLinesCheck)
+  - [MethodCallParameterAlignmentCheck](#MethodCallParameterAlignmentCheck)
   - [MethodCallParameterLinesCheck](#MethodCallParameterLinesCheck)
 * [Configuration](#Configuration)
   - [Maven dependency](#Maven-dependency)
@@ -73,6 +74,56 @@ public SimpleClass(String foo, String bar,
 }
 ```
 
+### MethodCallParameterAlignmentCheck
+
+#### Violations
+
+##### Valid formatting
+
+```
+List.of(1, 2, 3);
+```
+
+```
+List.of(1,
+        2,
+        3);
+```
+
+```
+List.of(
+    1,
+    2,
+    3);
+```
+
+```
+List.of(1,
+        2, 3);
+```
+
+```
+Map.of("a", 1,
+       "b", 2);
+```
+
+##### Not valid formatting
+
+```
+List.of(1,
+     2,
+     3);
+```
+
+```
+List.of(
+      1,
+            2,
+      3);
+```
+
+When parameters in method/constructor call are on multiple lines, verify if these lines are aligned.
+
 ### MethodCallParameterLinesCheck
 
 Verify if call method/constructor arguments are either a single line or they are broken up into multiple lines,
@@ -83,6 +134,8 @@ each on an individual line.
 | parameter name | type     | default value | description                                                                                             |
 |----------------|----------|---------------|---------------------------------------------------------------------------------------------------------|
 | ignoreMethods  | String[] | []            | allows to ignore methods from verification, e.g. `Map.of` method, or `of` method, or `Foo` constructor. |
+
+#### Violations
 
 ##### Valid formatting
 
