@@ -5,12 +5,17 @@ class SampleClass extends SuperClass {
         SampleClass.foo(1, 2, 3);
 
         foo(1,
-                2,
-                3);
+            2,
+
+            3);
+
+        foo(1, 2,
+            3);
 
         new Bar("a", "b", "c");
 
-        Bar bar = new Bar("a",
+        Bar bar = new Bar(
+                "a",
                 "b",
                 "c");
     }
@@ -34,8 +39,8 @@ class SampleClass extends SuperClass {
 
         y(1, 2, 3);
         y(1,
-                2,
-                3);
+          2,
+          3);
 
         abc();
         abc(1);
