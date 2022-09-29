@@ -25,6 +25,7 @@ class SampleClass extends SuperClass {
                 "c");
 
         Optional.of(1).map(BigDecimal::new);
+        Optional.of(1).map(String::valueOf);
 
         fin12(
                 new Class1(getOverrideId()),
