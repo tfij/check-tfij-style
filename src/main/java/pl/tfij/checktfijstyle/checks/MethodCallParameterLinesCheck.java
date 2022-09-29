@@ -41,19 +41,20 @@ public class MethodCallParameterLinesCheck extends AbstractCheck {
         if (methodId.isPresent() && ignoreMethods.contains(methodId.get())) {
             return;
         }
+        Optional<DetailAST> params = tryGetFirstChild(ast, TokenTypes.ELIST);
+        params.ifPresent(p -> {
+            Map<Integer, Integer> paramsInLines = DetailASTUtil.streamAll(p.getFirstChild(), TokenTypes.EXPR)
+                    .map(DetailAST::getLineNo)
+                    .collect(toMap(it -> it, it -> 1, Integer::sum));
 
-        DetailAST params = getFirstChild(ast, TokenTypes.ELIST);
-        Map<Integer, Integer> paramsInLines = DetailASTUtil.streamAll(params.getFirstChild(), TokenTypes.EXPR)
-                .map(DetailAST::getLineNo)
-                .collect(toMap(it -> it, it -> 1, Integer::sum));
+            if (paramsInLines.size() < 2) {
+                return;
+            }
 
-        if (paramsInLines.size() < 2) {
-            return;
-        }
-
-        Optional<Integer> invalidLine = paramsInLines.values().stream().filter(it -> it > 1).findFirst();
-        invalidLine.ifPresent(line -> {
-            log(ast.getLineNo(), ast.getColumnNo(), MSG_PARAMS_LINES);
+            Optional<Integer> invalidLine = paramsInLines.values().stream().filter(it -> it > 1).findFirst();
+            invalidLine.ifPresent(line -> {
+                log(ast.getLineNo(), ast.getColumnNo(), MSG_PARAMS_LINES);
+            });
         });
     }
 
