@@ -1,5 +1,8 @@
 package pl.tfij.checktfijstyle.sample.paramsLinesInCall;
 
+import java.math.BigDecimal;
+import java.util.Optional;
+
 class SampleClass extends SuperClass {
     public static void main(String[] args) {
         SampleClass.foo(1, 2, 3);
@@ -12,12 +15,29 @@ class SampleClass extends SuperClass {
         foo(1, 2,
             3);
 
+        new Bar();
+
         new Bar("a", "b", "c");
 
         Bar bar = new Bar(
                 "a",
                 "b",
                 "c");
+
+        Optional.of(1).map(BigDecimal::new);
+
+        fin12(
+                new Class1(getOverrideId()),
+                getActionTime().atZone(DB_ZONE).toInstant(),
+                "sample-string"
+        );
+
+        fin12(
+                new Class1(getOverrideId()),
+                getActionTime()
+                        .atZone(DB_ZONE).toInstant(),
+                "sample-string"
+        );
     }
 
     SampleClass() {
