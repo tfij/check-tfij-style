@@ -177,14 +177,14 @@ int i = foo(1, 2,
         "-//Checkstyle//DTD Checkstyle Configuration 1.3//EN"
         "https://checkstyle.org/dtds/configuration_1_3.dtd">
 <module name="Checker">
-    <module name="TreeWalker">
-        <module name="pl.tfij.checktfijstyle.checks.MethodParameterAlignmentCheck"/>
-        <module name="pl.tfij.checktfijstyle.checks.MethodParameterLinesCheck"/>
-        <module name="pl.tfij.checktfijstyle.checks.MethodCallParameterAlignmentCheck"/>
-        <module name="pl.tfij.checktfijstyle.checks.MethodCallParameterLinesCheck">
-            <property name="ignoreMethods" value="Map.of"/>
-        </module>
+  <module name="TreeWalker">
+    <module name="MethodParameterAlignment"/>
+    <module name="MethodParameterLines"/>
+    <module name="MethodCallParameterAlignment"/>
+    <module name="MethodCallParameterLines">
+      <property name="ignoreMethods" value="Map.of"/>
     </module>
+  </module>
 </module>
 ```
 
