@@ -1,4 +1,4 @@
-package pl.tfij.checktfijstyle.checks;
+package pl.tfij.checktfijstyle.checks2;
 
 import com.google.common.collect.Streams;
 import com.puppycrawl.tools.checkstyle.StatelessCheck;
@@ -6,7 +6,10 @@ import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
-import java.util.*;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -75,7 +78,7 @@ public class MethodParameterAlignmentCheck extends AbstractCheck {
 
         private LinkedList<DetailAST> q;
 
-        public DetailASTIterator(DetailAST start) {
+        DetailASTIterator(DetailAST start) {
             q = new LinkedList<>();
             q.push(start);
         }
@@ -88,9 +91,15 @@ public class MethodParameterAlignmentCheck extends AbstractCheck {
         @Override
         public DetailAST next() {
             DetailAST r = q.pop();
-            if (r == null) return null;
-            if (r.getNextSibling() != null) q.push(r.getNextSibling());
-            if (r.hasChildren()) q.push(r.getFirstChild());
+            if (r == null) {
+                return null;
+            }
+            if (r.getNextSibling() != null) {
+                q.push(r.getNextSibling());
+            }
+            if (r.hasChildren()) {
+                q.push(r.getFirstChild());
+            }
             return r;
         }
     }

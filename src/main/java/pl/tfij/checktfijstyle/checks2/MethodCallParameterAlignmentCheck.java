@@ -1,4 +1,4 @@
-package pl.tfij.checktfijstyle.checks;
+package pl.tfij.checktfijstyle.checks2;
 
 import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
@@ -8,10 +8,9 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toMap;
-import static pl.tfij.checktfijstyle.checks.DetailASTUtil.tryGetFirstChild;
+import static pl.tfij.checktfijstyle.checks2.DetailASTUtil.tryGetFirstChild;
 
 public class MethodCallParameterAlignmentCheck extends AbstractCheck {
     public static final String MSG_PARAMS_LINES = "methodCall.params.lines-alignment";

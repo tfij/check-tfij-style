@@ -1,14 +1,17 @@
-package pl.tfij.checktfijstyle.checks;
+package pl.tfij.checktfijstyle.checks2;
 
 import com.google.common.collect.Streams;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
-import net.sf.saxon.functions.Empty;
 
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-class DetailASTUtil {
+final class DetailASTUtil {
+    private DetailASTUtil() {
+        throw new IllegalStateException("Can't create instance of util class");
+    }
+
     static Stream<DetailAST> stream(DetailAST start) {
         return Streams.stream(new DetailASTIterator(start));
     }
@@ -26,7 +29,13 @@ class DetailASTUtil {
 
     static DetailAST getFirstChild(DetailAST ast, int type) {
         return tryGetFirstChild(ast, type)
-                .orElseThrow(() -> new NoSuchElementException(String.format("Can't find element of type %s ant %s[%s:%s] AST", type, ast.getText(), ast.getLineNo(), ast.getColumnNo())));
+                .orElseThrow(() -> new NoSuchElementException(
+                        String.format(
+                                "Can't find element of type %s ant %s[%s:%s] AST",
+                                type,
+                                ast.getText(),
+                                ast.getLineNo(),
+                                ast.getColumnNo())));
     }
 
     static Optional<DetailAST> tryGetFirstChild(DetailAST ast, int type) {

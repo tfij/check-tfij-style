@@ -3,6 +3,7 @@ plugins {
     `maven-publish`
     signing
     id("pl.allegro.tech.build.axion-release") version "1.14.1"
+    checkstyle
 }
 
 group = "pl.tfij"
@@ -13,9 +14,9 @@ repositories {
 }
 
 dependencies {
-    implementation("com.puppycrawl.tools:checkstyle:8.38")
+    implementation("com.puppycrawl.tools:checkstyle:10.3.1")
 
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.6.0")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.0")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
 }
 
@@ -101,4 +102,8 @@ tasks.getByName<Javadoc>("javadoc") {
     if(JavaVersion.current().isJava9Compatible) {
         (options as? StandardJavadocDocletOptions)?.addBooleanOption("html5", true)
     }
+}
+
+checkstyle {
+    sourceSets = listOf(project.sourceSets.main.orNull)
 }

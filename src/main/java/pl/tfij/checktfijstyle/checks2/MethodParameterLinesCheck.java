@@ -1,4 +1,4 @@
-package pl.tfij.checktfijstyle.checks;
+package pl.tfij.checktfijstyle.checks2;
 
 import com.puppycrawl.tools.checkstyle.StatelessCheck;
 import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
@@ -9,8 +9,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static pl.tfij.checktfijstyle.checks.DetailASTUtil.getFirstChild;
-import static pl.tfij.checktfijstyle.checks.DetailASTUtil.streamAll;
+import static pl.tfij.checktfijstyle.checks2.DetailASTUtil.getFirstChild;
+import static pl.tfij.checktfijstyle.checks2.DetailASTUtil.streamAll;
 
 @StatelessCheck
 public class MethodParameterLinesCheck extends AbstractCheck {
@@ -42,24 +42,24 @@ public class MethodParameterLinesCheck extends AbstractCheck {
     @Override
     public void visitToken(DetailAST ast) {
         List<Integer> lines = argumentLines(ast);
-
         if (lines.size() < 2) {
             return;
         }
-
         if (allDifferent(lines)) {
             return;
         }
-
         if (allowSingleLine && allSame(lines)) {
             return;
         }
+        logViolationFor(ast);
+    }
 
-        if (allowSingleLine)
+    private void logViolationFor(DetailAST ast) {
+        if (allowSingleLine) {
             log(ast.getLineNo(), ast.getColumnNo(), MSG_PARAMS_LINES);
-        else
+        } else {
             log(ast.getLineNo(), ast.getColumnNo(), MSG_PARAMS_SEPARATE_LINES);
-
+        }
     }
 
     private List<Integer> argumentLines(DetailAST ast) {
