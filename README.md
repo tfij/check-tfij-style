@@ -11,7 +11,8 @@ A set of additional checks to use with [checkstyle](https://checkstyle.sourcefor
 * [Configuration](#Configuration)
   - [Maven dependency](#Maven-dependency)
   - [Example checkstyle configuration](#Example-checkstyle-configuration)
-  - [Example maven plugin configuration](#Example-maven-plugin-configuration)
+  - [Example checkstyle maven plugin configuration](#Example-checkstyle-maven-plugin-configuration)
+  - [Example checkstyle gradle plugin configuration](#Example-checkstyle-gradle-plugin-configuration)
 
 ## Checks
 
@@ -187,7 +188,7 @@ int i = foo(1, 2,
 </module>
 ```
 
-### Example maven plugin configuration
+### Example checkstyle maven plugin configuration
 
 To use check from this library with `maven-checkstyle-plugin`,
 you have to add the library as a maven dependency to the plugin.
@@ -221,4 +222,17 @@ you have to add the library as a maven dependency to the plugin.
         </dependency>
     </dependencies>
 </plugin>
+```
+
+### Example checkstyle gradle plugin configuration
+
+```
+plugins {
+    java
+    checkstyle
+}
+
+dependencies {
+    checkstyle("pl.tfij:check-tfij-style:1.2.1")
+}
 ```
