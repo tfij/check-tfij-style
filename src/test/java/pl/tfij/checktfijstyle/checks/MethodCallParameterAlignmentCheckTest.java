@@ -1,4 +1,4 @@
-package pl.tfij.checktfijstyle.checks2;
+package pl.tfij.checktfijstyle.checks;
 
 import org.junit.jupiter.api.Test;
 import pl.tfij.checktfijstyle.fixture.TestCheckstyle;

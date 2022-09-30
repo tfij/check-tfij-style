@@ -1,4 +1,4 @@
-package pl.tfij.checktfijstyle.checks2;
+package pl.tfij.checktfijstyle.checks;
 
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 

@@ -1,4 +1,4 @@
-package pl.tfij.checktfijstyle.checks2;
+package pl.tfij.checktfijstyle.checks;
 
 import com.google.common.collect.Streams;
 import com.puppycrawl.tools.checkstyle.StatelessCheck;

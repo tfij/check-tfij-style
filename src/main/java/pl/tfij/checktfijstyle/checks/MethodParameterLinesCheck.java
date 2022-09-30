@@ -1,4 +1,4 @@
-package pl.tfij.checktfijstyle.checks2;
+package pl.tfij.checktfijstyle.checks;
 
 import com.puppycrawl.tools.checkstyle.StatelessCheck;
 import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
@@ -9,8 +9,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static pl.tfij.checktfijstyle.checks2.DetailASTUtil.getFirstChild;
-import static pl.tfij.checktfijstyle.checks2.DetailASTUtil.streamAll;
+import static pl.tfij.checktfijstyle.checks.DetailASTUtil.getFirstChild;
+import static pl.tfij.checktfijstyle.checks.DetailASTUtil.streamAll;
 
 @StatelessCheck
 public class MethodParameterLinesCheck extends AbstractCheck {
