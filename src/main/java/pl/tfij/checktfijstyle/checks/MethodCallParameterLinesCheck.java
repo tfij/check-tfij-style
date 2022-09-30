@@ -1,4 +1,4 @@
-package pl.tfij.checktfijstyle.checks2;
+package pl.tfij.checktfijstyle.checks;
 
 import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
@@ -15,7 +15,7 @@ import java.util.Set;
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toMap;
 import static java.util.stream.Collectors.toSet;
-import static pl.tfij.checktfijstyle.checks2.DetailASTUtil.tryGetFirstChild;
+import static pl.tfij.checktfijstyle.checks.DetailASTUtil.tryGetFirstChild;
 
 public class MethodCallParameterLinesCheck extends AbstractCheck {
     public static final String MSG_PARAMS_LINES = "methodCall.params.lines";
