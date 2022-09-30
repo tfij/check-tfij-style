@@ -1,7 +1,6 @@
-package pl.tfij.checktfijstyle.checks;
+package pl.tfij.checktfijstyle.checks2;
 
 import org.junit.jupiter.api.Test;
-import pl.tfij.checktfijstyle.checks.MethodCallParameterLinesCheck;
 import pl.tfij.checktfijstyle.fixture.TestCheckstyle;
 
 class MethodCallParameterLinesCheckTest {

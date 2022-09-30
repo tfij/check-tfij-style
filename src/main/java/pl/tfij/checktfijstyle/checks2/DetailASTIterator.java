@@ -1,4 +1,4 @@
-package pl.tfij.checktfijstyle.checks;
+package pl.tfij.checktfijstyle.checks2;
 
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 
@@ -7,7 +7,7 @@ import java.util.Iterator;
 class DetailASTIterator implements Iterator<DetailAST> {
     private DetailAST c;
 
-    public DetailASTIterator(DetailAST start) {
+    DetailASTIterator(DetailAST start) {
         c = start;
     }
 
