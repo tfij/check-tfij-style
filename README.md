@@ -164,7 +164,7 @@ int i = foo(1, 2,
 <dependency>
     <groupId>pl.tfij</groupId>
     <artifactId>check-tfij-style</artifactId>
-    <version>1.1.0</version>
+    <version>1.2.1</version>
 </dependency>
 ```
 
@@ -213,7 +213,7 @@ you have to add the library as a maven dependency to the plugin.
         <dependency>
             <groupId>pl.tfij</groupId>
             <artifactId>check-tfij-style</artifactId>
-            <version>1.1.0</version>
+            <version>1.2.1</version>
         </dependency>
     </dependencies>
 </plugin>
