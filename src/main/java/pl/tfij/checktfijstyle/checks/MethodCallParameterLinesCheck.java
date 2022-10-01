@@ -3,12 +3,13 @@ package pl.tfij.checktfijstyle.checks;
 import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
+import lombok.EqualsAndHashCode;
+import lombok.RequiredArgsConstructor;
 
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
@@ -82,14 +83,11 @@ public class MethodCallParameterLinesCheck extends AbstractCheck {
                 });
     }
 
+    @RequiredArgsConstructor
+    @EqualsAndHashCode
     private static class MethodId {
         private final String className;
         private final String methodName;
-
-        MethodId(String className, String methodName) {
-            this.className = className;
-            this.methodName = methodName;
-        }
 
         static MethodId fromString(String string) {
             String[] split = string.split("\\.");
@@ -98,23 +96,6 @@ public class MethodCallParameterLinesCheck extends AbstractCheck {
             } else {
                 return new MethodId(split[0], split[1]);
             }
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) {
-                return true;
-            }
-            if (o == null || getClass() != o.getClass()) {
-                return false;
-            }
-            MethodId methodId = (MethodId) o;
-            return Objects.equals(className, methodId.className) && Objects.equals(methodName, methodId.methodName);
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(className, methodName);
         }
     }
 }

@@ -142,10 +142,10 @@
             <property name="checks" value="HideUtilityClassConstructor"/>
             <!-- spring boot run class -->
             <property name="query"
-                      value="//*[CLASS_DEF/MODIFIERS/ANNOTATION[@text='SpringBootApplication' or *[@text = 'SpringBootApplication']]]/descendant-or-self::node()"/>
+                      value="//CLASS_DEF[MODIFIERS/ANNOTATION/IDENT[@text='SpringBootApplication' or *[@text = 'SpringBootApplication']]]"/>
             <!-- lombok utility annotation -->
             <property name="query"
-                      value="//*[CLASS_DEF/MODIFIERS/ANNOTATION[@text='UtilityClass' or *[@text = 'UtilityClass']]]/descendant-or-self::node()"/>
+                      value="//CLASS_DEF[MODIFIERS/ANNOTATION/IDENT[@text='UtilityClass' or *[@text = 'UtilityClass']]]"/>
         </module>
         <module name="InterfaceIsType"/>
         <module name="VisibilityModifier"/>
