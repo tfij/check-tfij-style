@@ -13,6 +13,7 @@ A set of additional checks to use with [checkstyle](https://checkstyle.sourcefor
   - [Example checkstyle configuration](#Example-checkstyle-configuration)
   - [Example checkstyle maven plugin configuration](#Example-checkstyle-maven-plugin-configuration)
   - [Example checkstyle gradle plugin configuration](#Example-checkstyle-gradle-plugin-configuration)
+* [Why external lib](#Why-external-lib)
 
 ## Checks
 
@@ -236,3 +237,10 @@ dependencies {
     checkstyle("pl.tfij:check-tfij-style:1.2.1")
 }
 ```
+
+## Why external lib
+
+The checkstyle is a powerful library that has many users.
+The success of this library meant that any changes require time-consuming analyzes and discussions, e.g. whether the change is backward compatible, whether is it consistent with all other checks, how to eventually deprecate this check, etc.
+An example is the [https://github.com/checkstyle/checkstyle/issues/9118](https://github.com/checkstyle/checkstyle/issues/9118) issue where the proposal and PoC was presented two years ago and there is still no decision about future steps.
+For this reason, I decided to release my own checks as a separate library that can be used together with the core checkstyle.
