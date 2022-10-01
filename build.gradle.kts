@@ -4,6 +4,7 @@ plugins {
     signing
     id("pl.allegro.tech.build.axion-release") version "1.14.1"
     checkstyle
+    id("io.freefair.lombok") version "6.5.1"
 }
 
 group = "pl.tfij"

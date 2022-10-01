@@ -2,15 +2,14 @@ package pl.tfij.checktfijstyle.checks;
 
 import com.google.common.collect.Streams;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
+import lombok.experimental.UtilityClass;
 
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-final class DetailASTUtil {
-    private DetailASTUtil() {
-        throw new IllegalStateException("Can't create instance of util class");
-    }
+@UtilityClass
+class DetailASTUtil {
 
     static Stream<DetailAST> stream(DetailAST start) {
         return Streams.stream(new DetailASTIterator(start));
