@@ -1,20 +1,18 @@
 package pl.tfij.checktfijstyle.checks;
 
-import com.google.common.collect.Streams;
 import com.puppycrawl.tools.checkstyle.StatelessCheck;
 import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
-import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static java.util.Objects.requireNonNull;
 import static java.util.stream.Collectors.toMap;
+import static pl.tfij.checktfijstyle.checks.DetailASTUtil.getFirstChild;
+import static pl.tfij.checktfijstyle.checks.DetailASTUtil.streamRecursively;
 
 @StatelessCheck
 public class MethodParameterAlignmentCheck extends AbstractCheck {
@@ -55,52 +53,10 @@ public class MethodParameterAlignmentCheck extends AbstractCheck {
     private Stream<DetailAST> getParameters(DetailAST ast) {
         if (ast.getType() == TokenTypes.RECORD_DEF) {
             final DetailAST parameters = getFirstChild(ast, TokenTypes.RECORD_COMPONENTS);
-            return walkDfs(parameters.getFirstChild()).flatMap(it -> walkDfs(it));
+            return streamRecursively(parameters.getFirstChild());
         } else {
             final DetailAST parameters = getFirstChild(ast, TokenTypes.PARAMETERS);
-            return walkDfs(parameters.getFirstChild());
-        }
-    }
-
-    private static Stream<DetailAST> walkDfs(DetailAST start) {
-        return Streams.stream(new DetailASTIterator(start));
-    }
-
-    private static DetailAST getFirstChild(DetailAST ast, int type) {
-        DetailAST c = ast.getFirstChild();
-        while (c != null && c.getType() != type) {
-            c = c.getNextSibling();
-        }
-        return requireNonNull(c);
-    }
-
-    private static class DetailASTIterator implements Iterator<DetailAST> {
-
-        private LinkedList<DetailAST> q;
-
-        DetailASTIterator(DetailAST start) {
-            q = new LinkedList<>();
-            q.push(start);
-        }
-
-        @Override
-        public boolean hasNext() {
-            return !q.isEmpty();
-        }
-
-        @Override
-        public DetailAST next() {
-            DetailAST r = q.pop();
-            if (r == null) {
-                return null;
-            }
-            if (r.getNextSibling() != null) {
-                q.push(r.getNextSibling());
-            }
-            if (r.hasChildren()) {
-                q.push(r.getFirstChild());
-            }
-            return r;
+            return streamRecursively(parameters.getFirstChild());
         }
     }
 }
