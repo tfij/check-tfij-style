@@ -16,7 +16,9 @@ class DetailASTUtil {
     }
 
     static Stream<DetailAST> streamRecursively(DetailAST start) {
-        if (start.getFirstChild() == null) {
+        if (start == null) {
+            return Stream.empty();
+        } else if (start.getFirstChild() == null) {
             return stream(start);
         } else {
             return Stream.concat(
