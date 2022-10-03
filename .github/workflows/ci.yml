@@ -30,3 +30,12 @@ jobs:
         distribution: 'temurin'
     - name: Build with Gradle
       run: ./gradlew build
+    - name: Add coverage to PR
+      # https://github.com/marketplace/actions/jacoco-report
+      id: jacoco
+      uses: madrapps/jacoco-report@v1.3
+      with:
+        paths: ${{ github.workspace }}/build/reports/jacoco/test/jacocoTestReport.xml
+        token: ${{ secrets.GITHUB_TOKEN }}
+        min-coverage-overall: 60
+        min-coverage-changed-files: 80
