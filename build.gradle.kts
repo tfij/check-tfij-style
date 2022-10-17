@@ -16,7 +16,7 @@ repositories {
 }
 
 dependencies {
-    implementation("com.puppycrawl.tools:checkstyle:10.3.1")
+    implementation("com.puppycrawl.tools:checkstyle:10.3.4")
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.0")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
@@ -123,5 +123,6 @@ tasks.getByName<Javadoc>("javadoc") {
 }
 
 checkstyle {
+    toolVersion = "10.3.4"
     sourceSets = listOf(project.sourceSets.main.orNull)
 }
