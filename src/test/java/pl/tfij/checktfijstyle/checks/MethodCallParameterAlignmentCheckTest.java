@@ -8,14 +8,14 @@ class MethodCallParameterAlignmentCheckTest {
 
     @Test
     void noMethodCallIssues() {
-        checkstyle.check("parametersAlignmentInCall/ValidAlignment.java");
+        checkstyle.check("MethodCallParameterAlignmentCheck/ValidAlignment.java");
 
         checkstyle.assertNoViolations();
     }
 
     @Test
     void badMethodCallParamLines() {
-        checkstyle.check("parametersAlignmentInCall/NonValidAlignment.java");
+        checkstyle.check("MethodCallParameterAlignmentCheck/NonValidAlignment.java");
 
         checkstyle.assertViolationCount(8);
         checkstyle.assertViolation(5, 24, "Lines in method call parameter list must be aligned.");
