@@ -120,7 +120,7 @@ public class TestCheckstyle {
     }
 
     public void assertNoViolations() {
-        Assertions.assertEquals(List.of(), errors);
+        Assertions.assertEquals(List.of(), errorsInFile());
     }
 
 }
