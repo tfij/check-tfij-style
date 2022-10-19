@@ -9,14 +9,14 @@ class MethodParameterAlignmentCheckTest {
 
     @Test
     void noMethodIssues() {
-        checkstyle.check("paramsAlignmentInDeclaration/NoMethodIssues.java");
+        checkstyle.check("MethodParameterAlignmentCheck/NoMethodIssues.java");
 
         checkstyle.assertNoViolations();
     }
 
     @Test
     void badMethodParamAlignments() {
-        checkstyle.check("paramsAlignmentInDeclaration/BadMethodParamAlignments.java");
+        checkstyle.check("MethodParameterAlignmentCheck/BadMethodParamAlignments.java");
 
         checkstyle.assertViolationCount(5);
         checkstyle.assertViolation(4, 5, "Lines in method parameter declaration list must be aligned.");
@@ -28,7 +28,7 @@ class MethodParameterAlignmentCheckTest {
 
     @Test
     void badRecordParamAlignments() {
-        checkstyle.check("paramsAlignmentInDeclaration/BadRecordParamAlignments.java");
+        checkstyle.check("MethodParameterAlignmentCheck/BadRecordParamAlignments.java");
 
         checkstyle.assertViolationCount(1);
         checkstyle.assertViolation(4, 1, "Lines in method parameter declaration list must be aligned.");

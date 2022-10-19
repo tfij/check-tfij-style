@@ -9,14 +9,14 @@ class MethodCallParameterLinesCheckTest {
 
     @Test
     void noMethodCallIssues() {
-        checkstyle.check("paramsLinesInCall/ValidLines.java");
+        checkstyle.check("MethodCallParameterLinesCheck/ValidLines.java");
 
         checkstyle.assertNoViolations();
     }
 
     @Test
     void badMethodCallParamLines() {
-        checkstyle.check("paramsLinesInCall/NonValidLines.java");
+        checkstyle.check("MethodCallParameterLinesCheck/NonValidLines.java");
 
         checkstyle.assertViolationCount(9);
         checkstyle.assertViolation(5, 24, "Method parameters must be placed on a single line or on separate lines.");
@@ -35,12 +35,12 @@ class MethodCallParameterLinesCheckTest {
         TestCheckstyle checkstyle = new TestCheckstyle(
                 MethodCallParameterLinesCheck.class,
                 c -> {
-                    c.addAttribute("ignoreMethods", "Map.of");
-                    c.addAttribute("ignoreMethods", "abc");
-                    c.addAttribute("ignoreMethods", "Bar");
+                    c.addProperty("ignoreMethods", "Map.of");
+                    c.addProperty("ignoreMethods", "abc");
+                    c.addProperty("ignoreMethods", "Bar");
                 });
 
-        checkstyle.check("paramsLinesInCall/IgnoreMethodCallViolation.java");
+        checkstyle.check("MethodCallParameterLinesCheck/IgnoreMethodCallViolation.java");
 
         checkstyle.assertViolationCount(3);
         checkstyle.assertViolation(11, 16, "Method parameters must be placed on a single line or on separate lines.");
