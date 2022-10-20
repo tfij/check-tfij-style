@@ -7,14 +7,21 @@ class NameLengthCheckTest {
     private final TestCheckstyle checkstyle = new TestCheckstyle(NameLengthCheck.class);
 
     @Test
-    void noIdentifierLengthIssues() {
+    void noIdentifierLengthIssuesInClass() {
         checkstyle.check("NameLengthCheck/ValidClass.java");
 
         checkstyle.assertNoViolations();
     }
 
     @Test
-    void toLongIdentifiers() {
+    void noIdentifierLengthIssuesInInterface() {
+        checkstyle.check("NameLengthCheck/ValidInterface.java");
+
+        checkstyle.assertNoViolations();
+    }
+
+    @Test
+    void toLongIdentifiersInClass() {
         checkstyle.check("NameLengthCheck/NonValidClass.java");
 
         checkstyle.assertViolationCount(17);
@@ -35,5 +42,16 @@ class NameLengthCheckTest {
         checkstyle.assertViolation(36, 5, "Class name `A51CharLengthInnerStaticClass______________________` is 51 length, max accepted length is 50.");
         checkstyle.assertViolation(39, 5, "Class name `A51CharLengthInnerClass____________________________` is 51 length, max accepted length is 50.");
         checkstyle.assertViolation(42, 5, "Record name `A51CharLengthInnerRecordClass______________________` is 51 length, max accepted length is 50.");
+    }
+
+    @Test
+    void toLongIdentifiersInInterface() {
+        checkstyle.check("NameLengthCheck/NonValidInterface.java");
+
+        checkstyle.assertViolationCount(4);
+        checkstyle.assertViolation(1, 1, "Package name `A51CharLengthPackageSegmentName____________________` is 51 length, max accepted length is 50.");
+        checkstyle.assertViolation(3, 1, "Interface name `A51CharLengthInterfaceName_________________________` is 51 length, max accepted length is 50.");
+        checkstyle.assertViolation(4, 5, "Enum class name `A51CharLengthEnum__________________________________` is 51 length, max accepted length is 50.");
+        checkstyle.assertViolation(5, 9, "Enum constant name `A51CharLengthEnumProperty__________________________` is 51 length, max accepted length is 50.");
     }
 }

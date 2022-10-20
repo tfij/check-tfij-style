@@ -19,11 +19,11 @@ class DetailASTUtil {
         if (start == null) {
             return Stream.empty();
         } else if (start.getFirstChild() == null) {
-            return stream(start);
+            return stream(start.getFirstChild());
         } else {
             return Stream.concat(
-                    stream(start),
-                    stream(start).filter(it -> it.getFirstChild() != null).map(it -> it.getFirstChild()).flatMap(it -> streamRecursively(it))
+                    stream(start.getFirstChild()),
+                    stream(start.getFirstChild()).flatMap(DetailASTUtil::streamRecursively)
             );
         }
     }

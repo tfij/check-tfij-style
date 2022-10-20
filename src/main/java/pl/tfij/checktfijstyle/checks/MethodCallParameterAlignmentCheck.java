@@ -45,6 +45,6 @@ public class MethodCallParameterAlignmentCheck extends AbstractCheck {
     }
 
     private Optional<DetailAST> findAstWithMinColumnNo(DetailAST ast) {
-        return DetailASTUtil.streamRecursively(ast.getFirstChild()).min(Comparator.comparing(DetailAST::getColumnNo));
+        return DetailASTUtil.streamRecursively(ast).min(Comparator.comparing(DetailAST::getColumnNo));
     }
 }

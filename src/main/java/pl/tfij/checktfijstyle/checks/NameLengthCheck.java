@@ -6,6 +6,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -18,15 +19,16 @@ public class NameLengthCheck extends AbstractCheck {
             TokenTypes.CTOR_DEF, "nameLength.constructorNameToLong",
             TokenTypes.RECORD_DEF, "nameLength.recordNameToLong",
             TokenTypes.PARAMETER_DEF, "nameLength.parameterNameToLong",
-            TokenTypes.VARIABLE_DEF, "nameLength.variableNameToLong"
+            TokenTypes.VARIABLE_DEF, "nameLength.variableNameToLong",
+            TokenTypes.INTERFACE_DEF, "nameLength.interfaceNameToLong",
+            TokenTypes.PACKAGE_DEF, "nameLength.packageNameToLong",
+            TokenTypes.ENUM_DEF, "nameLength.enumClassNameToLong",
+            TokenTypes.ENUM_CONSTANT_DEF, "nameLength.enumConstantNameToLong"
     );
     private static final int DEFAULT_MAX_SIZE = 50;
 
     @Override
     public int[] getDefaultTokens() {
-        //TODO INTERFACE_DEF
-        //TODO PACKAGE_DEF
-        //TODO ENUM_DEF
         //TODO different defaults for types
         //TODO setters to override default max length
         return new int[]{
@@ -35,7 +37,12 @@ public class NameLengthCheck extends AbstractCheck {
                 TokenTypes.CTOR_DEF,
                 TokenTypes.RECORD_DEF,
                 TokenTypes.PARAMETER_DEF,
-                TokenTypes.VARIABLE_DEF};
+                TokenTypes.VARIABLE_DEF,
+                TokenTypes.INTERFACE_DEF,
+                TokenTypes.PACKAGE_DEF,
+                TokenTypes.ENUM_DEF,
+                TokenTypes.ENUM_CONSTANT_DEF,
+        };
     }
 
     @Override
@@ -50,9 +57,34 @@ public class NameLengthCheck extends AbstractCheck {
 
     @Override
     public void visitToken(DetailAST ast) {
-        if (ast.getType() == TokenTypes.METHOD_DEF && isMethodAnnotatedByOverride(ast)) {
-            return;
+        if (ast.getType() == TokenTypes.METHOD_DEF) {
+            methodNameVerification(ast);
+        } else if (ast.getType() == TokenTypes.PACKAGE_DEF) {
+            packageNameVerification(ast);
+        } else {
+            regularIdentifierVerification(ast);
         }
+    }
+
+    private void methodNameVerification(DetailAST ast) {
+        if (isMethodAnnotatedByOverride(ast)) {
+            return;
+        } else {
+            regularIdentifierVerification(ast);
+        }
+    }
+
+    private void packageNameVerification(DetailAST ast) {
+        Optional<String> toLongPackageSegmentName = DetailASTUtil.streamRecursively(ast)
+                .filter(it -> it.getType() == TokenTypes.IDENT)
+                .map(it -> it.getText())
+                .filter(it -> it.length() > DEFAULT_MAX_SIZE)
+                .findFirst();
+        toLongPackageSegmentName
+                .ifPresent(it -> log(ast.getLineNo(), ast.getColumnNo(), TOKEN_TYPE_TO_MSG.get(ast.getType()), it, it.length(), DEFAULT_MAX_SIZE));
+    }
+
+    private void regularIdentifierVerification(DetailAST ast) {
         DetailAST firstChild = getFirstChild(ast, TokenTypes.IDENT);
         String intentName = firstChild.getText();
         if (intentName.length() > DEFAULT_MAX_SIZE) {

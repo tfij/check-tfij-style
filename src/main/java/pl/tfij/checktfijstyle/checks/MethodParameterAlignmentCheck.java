@@ -53,10 +53,10 @@ public class MethodParameterAlignmentCheck extends AbstractCheck {
     private Stream<DetailAST> getParameters(DetailAST ast) {
         if (ast.getType() == TokenTypes.RECORD_DEF) {
             final DetailAST parameters = getFirstChild(ast, TokenTypes.RECORD_COMPONENTS);
-            return streamRecursively(parameters.getFirstChild());
+            return streamRecursively(parameters);
         } else {
             final DetailAST parameters = getFirstChild(ast, TokenTypes.PARAMETERS);
-            return streamRecursively(parameters.getFirstChild());
+            return streamRecursively(parameters);
         }
     }
 }
