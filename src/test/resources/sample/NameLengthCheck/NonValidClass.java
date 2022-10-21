@@ -1,35 +1,35 @@
 package pl.tfij.checktfijstyle.sample.paramsLinesInCall;
 
 class A51CharLengthClass_________________________________ extends A51CharLengthClassToExtend_________________________ {
-    A51CharLengthClass_________________________________(String a51CharsLengthArgument_____________________________) {
+    A51CharLengthClass_________________________________(String a31CharsLengthArgument_________) {
     }
 
-    private static final String a51CharsLengstStaticField__________________________ = "";
-    private final String a51CharsLengstField________________________________ = "";
+    private static final String a31CharsLengthStaticField______ = "";
+    private final String a31CharsLengthField____________ = "";
 
-    public static void a51CharsLengstStaticMethod_____________________________________() {
+    public static void a51CharsLengthStaticMethod_________________________() {
     }
 
-    public String a51CharsLengthMethod___________________________________________() {
+    public String a51CharsLengthMethod_______________________________() {
         return "";
     }
 
-    public String aMethod1(String a51CharsLengthArgument_____________________________) {
-        int a51charLengthVariable______________________________ = 1;
+    public String aMethod1(String a31CharsLengthArgument_________) {
+        int a31charLengthVariable__________ = 1;
         return "";
     }
 
-    public String aMethod1(@SomeAnnotation String a51CharsLengthArgument_____________________________) {
-        int a51charLengthVariable______________________________ = 1;
+    public String aMethod1(@SomeAnnotation String a31CharsLengthArgument_________) {
+        int a31charLengthVariable__________ = 1;
         return "";
     }
 
-    public String aMethod2(String shortName, String a51CharsLengthArgument_____________________________) {
+    public String aMethod2(String shortName, String a31CharsLengthArgument_________) {
     }
 
     @Override
-    public String aMethod3(String a51CharsLengthArgument_____________________________) {
-        int a51charLengthVariable______________________________ = 1;
+    public String aMethod3(String a31CharsLengthArgument_________) {
+        int a31charLengthVariable__________ = 1;
         return "";
     }
 

@@ -1,12 +1,12 @@
 class A50CharLengthClass________________________________ extends A51CharLengthClassToExtend_________________________ {
 
-    A50CharLengthClass________________________________(String a50CharsLengthArgument____________________________) {
+    A50CharLengthClass________________________________(String a30CharsLengthArgument________) {
     }
 
-    private static final String a50CharsLengthStaticField_________________________ = "";
-    private final String a50CharsLengthField_______________________________ = "";
+    private static final String a30CharsLengthStaticField_____ = "";
+    private final String a30CharsLengthField___________ = "";
 
-    public static void a50CharsLengthStaticMethod________________________() {
+    public static void a30CharsLengthField___________() {
     }
 
     public String a50CharsLengthMethod______________________________() {
@@ -23,13 +23,13 @@ class A50CharLengthClass________________________________ extends A51CharLengthCl
         return "";
     }
 
-    public String aMethod1(String a50CharsLengthArgument____________________________) {
-        int a50charLengthVariable_____________________________ = 1;
+    public String aMethod1(String a30CharsLengthArgument________) {
+        int a30CharsLengthArgument________ = 1;
         return "";
     }
 
-    public String aMethod2(@SomeAnnotation final String a50CharsLengstArgument____________________________) {
-        int a50charLengthVariable_____________________________ = 1;
+    public String aMethod2(@SomeAnnotation final String a30CharsLengthArgument________) {
+        int a30CharsLengthArgument________ = 1;
         return "";
     }
 

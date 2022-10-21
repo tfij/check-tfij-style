@@ -1,4 +1,4 @@
-package sample.A51CharLengthPackageSegmentName____________________.x.y;
+package sample.A21CharLengthPackage_.x.y;
 
 public interface A51CharLengthInterfaceName_________________________ {
     enum A51CharLengthEnum__________________________________ {

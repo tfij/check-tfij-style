@@ -25,11 +25,21 @@ public class NameLengthCheck extends AbstractCheck {
             TokenTypes.ENUM_DEF, "nameLength.enumClassNameToLong",
             TokenTypes.ENUM_CONSTANT_DEF, "nameLength.enumConstantNameToLong"
     );
-    private static final int DEFAULT_MAX_SIZE = 50;
+    private static final Map<Integer, Integer> TOKEN_TYPE_TO_DEFAULT_MAX_LENGTH = Map.of(
+            TokenTypes.CLASS_DEF, 50,
+            TokenTypes.METHOD_DEF, 50,
+            TokenTypes.CTOR_DEF, 50,
+            TokenTypes.RECORD_DEF, 50,
+            TokenTypes.PARAMETER_DEF, 30,
+            TokenTypes.VARIABLE_DEF, 30,
+            TokenTypes.INTERFACE_DEF, 50,
+            TokenTypes.PACKAGE_DEF, 20,
+            TokenTypes.ENUM_DEF, 50,
+            TokenTypes.ENUM_CONSTANT_DEF, 50
+    );
 
     @Override
     public int[] getDefaultTokens() {
-        //TODO different defaults for types
         //TODO setters to override default max length
         return new int[]{
                 TokenTypes.CLASS_DEF,
@@ -69,27 +79,30 @@ public class NameLengthCheck extends AbstractCheck {
     private void methodNameVerification(DetailAST ast) {
         if (isMethodAnnotatedByOverride(ast)) {
             return;
-        } else {
-            regularIdentifierVerification(ast);
         }
+        regularIdentifierVerification(ast);
     }
 
     private void packageNameVerification(DetailAST ast) {
         Optional<String> toLongPackageSegmentName = DetailASTUtil.streamRecursively(ast)
                 .filter(it -> it.getType() == TokenTypes.IDENT)
                 .map(it -> it.getText())
-                .filter(it -> it.length() > DEFAULT_MAX_SIZE)
+                .filter(it -> it.length() > maxLengthFor(ast))
                 .findFirst();
         toLongPackageSegmentName
-                .ifPresent(it -> log(ast.getLineNo(), ast.getColumnNo(), TOKEN_TYPE_TO_MSG.get(ast.getType()), it, it.length(), DEFAULT_MAX_SIZE));
+                .ifPresent(it -> log(ast.getLineNo(), ast.getColumnNo(), TOKEN_TYPE_TO_MSG.get(ast.getType()), it, it.length(), maxLengthFor(ast)));
     }
 
     private void regularIdentifierVerification(DetailAST ast) {
         DetailAST firstChild = getFirstChild(ast, TokenTypes.IDENT);
         String intentName = firstChild.getText();
-        if (intentName.length() > DEFAULT_MAX_SIZE) {
-            log(ast.getLineNo(), ast.getColumnNo(), TOKEN_TYPE_TO_MSG.get(ast.getType()), intentName, intentName.length(), DEFAULT_MAX_SIZE);
+        if (intentName.length() > maxLengthFor(ast)) {
+            log(ast.getLineNo(), ast.getColumnNo(), TOKEN_TYPE_TO_MSG.get(ast.getType()), intentName, intentName.length(), maxLengthFor(ast));
         }
+    }
+
+    private Integer maxLengthFor(DetailAST ast) {
+        return TOKEN_TYPE_TO_DEFAULT_MAX_LENGTH.get(ast.getType());
     }
 
     private boolean isMethodAnnotatedByOverride(DetailAST ast) {
