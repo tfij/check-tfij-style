@@ -4,6 +4,7 @@ import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -16,7 +17,6 @@ public class NameLengthCheck extends AbstractCheck {
     private static final Map<Integer, String> TOKEN_TYPE_TO_MSG = Map.of(
             TokenTypes.CLASS_DEF, "nameLength.classNameToLong",
             TokenTypes.METHOD_DEF, "nameLength.methodNameToLong",
-            TokenTypes.CTOR_DEF, "nameLength.constructorNameToLong",
             TokenTypes.RECORD_DEF, "nameLength.recordNameToLong",
             TokenTypes.PARAMETER_DEF, "nameLength.parameterNameToLong",
             TokenTypes.VARIABLE_DEF, "nameLength.variableNameToLong",
@@ -28,7 +28,6 @@ public class NameLengthCheck extends AbstractCheck {
     private static final Map<Integer, Integer> TOKEN_TYPE_TO_DEFAULT_MAX_LENGTH = Map.of(
             TokenTypes.CLASS_DEF, 50,
             TokenTypes.METHOD_DEF, 50,
-            TokenTypes.CTOR_DEF, 50,
             TokenTypes.RECORD_DEF, 50,
             TokenTypes.PARAMETER_DEF, 30,
             TokenTypes.VARIABLE_DEF, 30,
@@ -37,14 +36,49 @@ public class NameLengthCheck extends AbstractCheck {
             TokenTypes.ENUM_DEF, 50,
             TokenTypes.ENUM_CONSTANT_DEF, 50
     );
+    private final Map<Integer, Integer> customMaxLength = new HashMap<>();
+
+    public void setMaxClassNameLength(int maxLength) {
+        customMaxLength.put(TokenTypes.CLASS_DEF, maxLength);
+    }
+
+    public void setMaxMethodNameLength(int maxLength) {
+        customMaxLength.put(TokenTypes.METHOD_DEF, maxLength);
+    }
+
+    public void setMaxRecordNameLength(int maxLength) {
+        customMaxLength.put(TokenTypes.RECORD_DEF, maxLength);
+    }
+
+    public void setMaxParameterNameLength(int maxLength) {
+        customMaxLength.put(TokenTypes.PARAMETER_DEF, maxLength);
+    }
+
+    public void setMaxVariableNameLength(int maxLength) {
+        customMaxLength.put(TokenTypes.VARIABLE_DEF, maxLength);
+    }
+
+    public void setMaxInterfaceNameLength(int maxLength) {
+        customMaxLength.put(TokenTypes.INTERFACE_DEF, maxLength);
+    }
+
+    public void setMaxPackageNameLength(int maxLength) {
+        customMaxLength.put(TokenTypes.PACKAGE_DEF, maxLength);
+    }
+
+    public void setMaxEnumClassNameLength(int maxLength) {
+        customMaxLength.put(TokenTypes.ENUM_DEF, maxLength);
+    }
+
+    public void setMaxEnumConstNameLength(int maxLength) {
+        customMaxLength.put(TokenTypes.ENUM_CONSTANT_DEF, maxLength);
+    }
 
     @Override
     public int[] getDefaultTokens() {
-        //TODO setters to override default max length
         return new int[]{
                 TokenTypes.CLASS_DEF,
                 TokenTypes.METHOD_DEF,
-                TokenTypes.CTOR_DEF,
                 TokenTypes.RECORD_DEF,
                 TokenTypes.PARAMETER_DEF,
                 TokenTypes.VARIABLE_DEF,
@@ -102,7 +136,7 @@ public class NameLengthCheck extends AbstractCheck {
     }
 
     private Integer maxLengthFor(DetailAST ast) {
-        return TOKEN_TYPE_TO_DEFAULT_MAX_LENGTH.get(ast.getType());
+        return customMaxLength.getOrDefault(ast.getType(), TOKEN_TYPE_TO_DEFAULT_MAX_LENGTH.get(ast.getType()));
     }
 
     private boolean isMethodAnnotatedByOverride(DetailAST ast) {
