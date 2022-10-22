@@ -8,6 +8,7 @@ A set of additional checks to use with [checkstyle](https://checkstyle.sourcefor
   - [MethodParameterLinesCheck](#MethodParameterLinesCheck)
   - [MethodCallParameterAlignmentCheck](#MethodCallParameterAlignmentCheck)
   - [MethodCallParameterLinesCheck](#MethodCallParameterLinesCheck)
+  - [NameLengthCheck](#NameLengthCheck)
 * [Configuration](#Configuration)
   - [Maven dependency](#Maven-dependency)
   - [Example checkstyle configuration](#Example-checkstyle-configuration)
@@ -156,6 +157,61 @@ int i = foo(1,
 ```
 int i = foo(1, 2, 
     3);
+```
+
+### NameLengthCheck
+
+Since 1.3.0
+
+Verify length of identifiers - method name, class name, package name, var name etc.
+
+#### Parameters
+
+| parameter name         | type | default value | description                                            |
+|------------------------|------|---------------|--------------------------------------------------------|
+| maxPackageNameLength   | int  | 20            | Define max length ot package segment name.             |
+| maxClassNameLength     | int  | 50            | Define max length ot class name.                       |
+| maxInterfaceNameLength | int  | 50            | Define max length ot interface name.                   |
+| maxRecordNameLength    | int  | 50            | Define max length ot record class name.                |
+| maxEnumClassNameLength | int  | 50            | Define max length ot enum class name.                  |
+| maxEnumConstNameLength | int  | 50            | Define max length ot enum const name.                  |
+| maxMethodNameLength    | int  | 50            | Define max length ot method name.                      |
+| maxParameterNameLength | int  | 30            | Define max length ot parameter name.                   |
+| maxVariableNameLength  | int  | 30            | Define max length ot variable and class property name. |
+
+#### Violations
+
+To configure the check:
+
+```xml
+<module name="NameLength" />
+```
+
+Which results in the following violations:
+```java
+class MongoDbOrderViolationRepository { // valid class name - length = 31
+  public List<OrderViolation> findByUnit(Unit unit) { // valid method name - length = 10
+    ...
+  }
+}
+```
+
+```java
+class SpringAwareCachedMongoDbOrderViolationRepositoryImpl { // non valid name - length = 51
+  public List<OrderViolation> findByReportDateAndByBusinessUnitAndIsActiveAndNumberOfActionsGratedThenAndEnv(...) { // non valid method name - length = 78
+  
+  }
+}
+```
+
+To configure with custom max length:
+
+```xml
+<module name="NameLength">
+  <property name="maxClassNameLength" value="40"/>
+  <property name="maxVariableNameLength" value="20"/>
+  ...
+</module>
 ```
 
 ## Configuration
