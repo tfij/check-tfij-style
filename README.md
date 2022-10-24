@@ -20,6 +20,8 @@ A set of additional checks to use with [checkstyle](https://checkstyle.sourcefor
 
 ### MethodParameterAlignmentCheck
 
+Since 1.0.0
+
 When parameters in method/constructor declaration are on multiple lines, verify if these lines are aligned.
 
 #### Violations
@@ -43,6 +45,8 @@ public SimpleClass(String foo,
 ```
 
 ### MethodParameterLinesCheck
+
+Since 1.0.0
 
 Verify if method/constructor arguments in declaration are either a single line or they are broken up into multiple lines, 
 each on an individual line.
@@ -78,6 +82,10 @@ public SimpleClass(String foo, String bar,
 ```
 
 ### MethodCallParameterAlignmentCheck
+
+Since 1.2.0
+
+When parameters in method/constructor call are on multiple lines, verify if these lines are aligned.
 
 #### Violations
 
@@ -125,9 +133,9 @@ List.of(
       3);
 ```
 
-When parameters in method/constructor call are on multiple lines, verify if these lines are aligned.
-
 ### MethodCallParameterLinesCheck
+
+Since 1.2.0
 
 Verify if call method/constructor arguments are either a single line or they are broken up into multiple lines,
 each on an individual line.
@@ -222,7 +230,7 @@ To configure with custom max length:
 <dependency>
     <groupId>pl.tfij</groupId>
     <artifactId>check-tfij-style</artifactId>
-    <version>1.2.1</version>
+    <version>1.3.0</version>
 </dependency>
 ```
 
@@ -275,7 +283,7 @@ you have to add the library as a maven dependency to the plugin.
         <dependency>
             <groupId>pl.tfij</groupId>
             <artifactId>check-tfij-style</artifactId>
-            <version>1.2.1</version>
+            <version>1.3.0</version>
         </dependency>
     </dependencies>
 </plugin>
@@ -290,7 +298,7 @@ plugins {
 }
 
 dependencies {
-    checkstyle("pl.tfij:check-tfij-style:1.2.1")
+    checkstyle("pl.tfij:check-tfij-style:1.3.0")
 }
 ```
 
