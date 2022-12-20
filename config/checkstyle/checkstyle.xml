@@ -156,5 +156,13 @@
         <module name="ArrayTypeStyle"/>
         <module name="TodoComment"/>
         <module name="UpperEll"/>
+
+        <!-- See https://github.com/tfij/check-tfij-style  -->
+        <module name="MethodParameterAlignment"/>
+        <module name="MethodParameterLines"/>
+        <module name="MethodCallParameterAlignment"/>
+        <module name="MethodCallParameterLines">
+            <property name="ignoreMethods" value="Map.of"/>
+        </module>
     </module>
 </module>
