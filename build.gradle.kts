@@ -4,7 +4,7 @@ plugins {
     signing
     id("pl.allegro.tech.build.axion-release") version "1.15.0"
     checkstyle
-    id("io.freefair.lombok") version "6.5.1"
+    id("io.freefair.lombok") version "8.0.1"
     jacoco
 }
 
