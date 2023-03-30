@@ -4,7 +4,6 @@ plugins {
     signing
     id("pl.allegro.tech.build.axion-release") version "1.15.0"
     checkstyle
-    id("io.freefair.lombok") version "6.5.1"
     jacoco
 }
 
@@ -17,6 +16,8 @@ repositories {
 
 dependencies {
     implementation("com.puppycrawl.tools:checkstyle:10.9.3")
+    compileOnly("org.projectlombok:lombok:1.18.26")
+    annotationProcessor("org.projectlombok:lombok:1.18.26")
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.2")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
