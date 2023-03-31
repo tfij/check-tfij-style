@@ -7,6 +7,13 @@ private static class SampleTestClass {
     private final String f4;
     private String f5 = "aa";
     private String f6;
+    private String f7;
+    private String f8;
+    private String f9;
+    private String f10;
+    private String f11;
+    private String f12;
+    private String f13;
 
     private SampleTestClass(String f1, String f2, String f4) {
         this.f1 = f1;
