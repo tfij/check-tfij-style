@@ -29,4 +29,36 @@ public class FieldsCountCheckTest {
         checkstyle.assertViolation(1, 1, "Class contains `6` fields, max accepted number of fields is 4.");
         checkstyle.assertViolation(1, 1, "Class contains `3` not initialized on declaration fields, max accepted number is 2.");
     }
+
+    @Test
+    void shouldReportNoViolationsWhenDefaultsAreOverrideAndCountersAreEquals() {
+        TestCheckstyle checkstyle = new TestCheckstyle(
+                FieldsCountCheck.class,
+                c -> {
+                    c.addProperty("maxFieldsCount", "6");
+                    c.addProperty("maxUninitializedOnDeclarationFieldsCount", "3");
+                });
+
+        checkstyle.check("FieldsCountCheck/SampleTestClass.java");
+
+        checkstyle.assertNoViolations();
+    }
+
+    @Test
+    void shouldReportViolationsWhenDefaultsAreNotOverrideAndCountersAreExceeded() {
+        checkstyle.check("FieldsCountCheck/ViolatedTestClass.java");
+
+        checkstyle.assertViolationCount(2);
+        checkstyle.assertViolation(1, 1, "Class contains `10` not initialized on declaration fields, max accepted number is 7.");
+        checkstyle.assertViolation(1, 1, "Class contains `13` fields, max accepted number of fields is 12.");
+    }
+
+    @Test
+    void shouldReportViolationsWhenDefaultsAreNotOverrideAndCountersAreExceededInSubClass() {
+        checkstyle.check("FieldsCountCheck/ViolatedTestSubClass.java");
+
+        checkstyle.assertViolationCount(2);
+        checkstyle.assertViolation(8, 5, "Class contains `10` not initialized on declaration fields, max accepted number is 7.");
+        checkstyle.assertViolation(8, 5, "Class contains `13` fields, max accepted number of fields is 12.");
+    }
 }

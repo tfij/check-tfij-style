@@ -13,7 +13,7 @@ import static pl.tfij.checktfijstyle.checks.DetailASTUtil.tryGetFirstChild;
 public class FieldsCountCheck extends AbstractCheck {
     public static final String MSG_FIELD_COUNT = "class.fields.count";
     public static final String MSG_UNINITIALIZED_ON_DECLARATION_FIELD_COUNT = "class.fields.uninitializedOnDeclarationCount";
-    private static final int DEFAULT_MAX_FIELD_COUNT = 9;
+    private static final int DEFAULT_MAX_FIELD_COUNT = 12;
     private static final int DEFAULT_MAX_UNINITIALIZED_ON_DECLARATION_FIELD_COUNT = 7;
     private int maxFieldsCount = DEFAULT_MAX_FIELD_COUNT;
     private int maxUninitializedOnDeclarationFieldsCount = DEFAULT_MAX_UNINITIALIZED_ON_DECLARATION_FIELD_COUNT;
