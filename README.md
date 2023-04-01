@@ -4,6 +4,7 @@ A set of additional checks to use with [checkstyle](https://checkstyle.sourcefor
 ## Content
 * [Content](#Content)
 * [Checks](#Checks)
+  - [FieldsCountCheck](#FieldsCountCheck)
   - [MethodParameterAlignmentCheck](#MethodParameterAlignmentCheck)
   - [MethodParameterLinesCheck](#MethodParameterLinesCheck)
   - [MethodCallParameterAlignmentCheck](#MethodCallParameterAlignmentCheck)
@@ -17,6 +18,62 @@ A set of additional checks to use with [checkstyle](https://checkstyle.sourcefor
 * [Why external lib](#Why-external-lib)
 
 ## Checks
+
+### FieldsCountCheck
+
+Since 1.4.0
+
+Verify if number of fields (all: static, not static, final, and not final) in the class is not above threshold.
+
+This check can also verify number of fields not initialized on declaration.
+It can be useful when you use [lombok](https://projectlombok.org/), and you don't declare constructors explicitly so there is no argument count check on the class constructor.
+
+#### Parameters
+
+| parameter name                           | type | default value | description                                                                |
+|------------------------------------------|------|---------------|----------------------------------------------------------------------------|
+| maxFieldsCount                           | int  | 12            | threshold for number of fields in the class                                |
+| maxUninitializedOnDeclarationFieldsCount | int  | 7             | threshold for number of not initialized on declaration fields in the class |
+
+#### Violations
+
+```
+private static class SampleClass {
+
+    private final String f1 = "1";
+    private final String f2 = "2";
+    private final String f3 = "3";
+    private final String f4 = "4";
+    private final String f5 = "5";
+    private final String f6 = "6";
+    private final String f7 = "7";
+    private final String f8 = "8";
+    private final String f9 = "9";
+    private final String f10 = "10";
+    private final String f11 = "11";
+    private final String f12 = "12";
+    private final String f13 = "13"; // violation, default thrashold of all fields is 12
+}
+```
+
+```
+private static class SampleClass {
+
+    private final String f1 = "1";
+    private final String f2 = "2";
+    private final String f3;
+    private final String f4;
+    private final String f5;
+    private final String f6;
+    private final String f7;
+    private final String f8;
+    private final String f9;
+    private final String f10; // violation, default thrashold of fields not initialized on declaration is 7
+    private final String f11;
+    private final String f12;
+    private final String f13;
+}
+```
 
 ### MethodParameterAlignmentCheck
 
@@ -243,6 +300,7 @@ To configure with custom max length:
         "https://checkstyle.org/dtds/configuration_1_3.dtd">
 <module name="Checker">
   <module name="TreeWalker">
+    <module name="FieldsCountCheck"/>
     <module name="MethodParameterAlignment"/>
     <module name="MethodParameterLines"/>
     <module name="MethodCallParameterAlignment"/>
