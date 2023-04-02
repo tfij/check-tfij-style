@@ -341,7 +341,7 @@ you have to add the library as a maven dependency to the plugin.
         <dependency>
             <groupId>pl.tfij</groupId>
             <artifactId>check-tfij-style</artifactId>
-            <version>1.3.0</version>
+            <version>1.4.0</version>
         </dependency>
     </dependencies>
 </plugin>
@@ -356,7 +356,7 @@ plugins {
 }
 
 dependencies {
-    checkstyle("pl.tfij:check-tfij-style:1.3.0")
+    checkstyle("pl.tfij:check-tfij-style:1.4.0")
 }
 ```
 
