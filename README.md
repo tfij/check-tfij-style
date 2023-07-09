@@ -86,10 +86,10 @@ private static class SampleClass {
 
 Since 1.5.0
 
-Verify if method or constructor contains empty lines.
+Verify if the method or constructor contains empty lines.
 This check is to promote small methods with a single responsibility.
 
-Empty lines in methods are a bed practice.
+Empty lines in methods are a bad practice.
 Usually, an empty line in a method separates logical parts.
 If the method has several logical parts, it is worth dividing it into smaller ones and expressing these logical parts in the method names.
 
@@ -431,7 +431,7 @@ you have to add the library as a maven dependency to the plugin.
         <dependency>
             <groupId>pl.tfij</groupId>
             <artifactId>check-tfij-style</artifactId>
-            <version>1.4.0</version>
+            <version>1.5.0</version>
         </dependency>
     </dependencies>
 </plugin>
@@ -446,7 +446,7 @@ plugins {
 }
 
 dependencies {
-    checkstyle("pl.tfij:check-tfij-style:1.4.0")
+    checkstyle("pl.tfij:check-tfij-style:1.5.0")
 }
 ```
 
