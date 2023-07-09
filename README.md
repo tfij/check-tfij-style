@@ -5,6 +5,7 @@ A set of additional checks to use with [checkstyle](https://checkstyle.sourcefor
 * [Content](#Content)
 * [Checks](#Checks)
   - [FieldsCountCheck](#FieldsCountCheck)
+  - [MethodEmptyLinesCheck](#MethodEmptyLinesCheck)
   - [MethodParameterAlignmentCheck](#MethodParameterAlignmentCheck)
   - [MethodParameterLinesCheck](#MethodParameterLinesCheck)
   - [MethodCallParameterAlignmentCheck](#MethodCallParameterAlignmentCheck)
@@ -28,7 +29,13 @@ Verify if number of fields (all: static, not static, final, and not final) in th
 This check can also verify number of fields not initialized on declaration.
 It can be useful when you use [lombok](https://projectlombok.org/), and you don't declare constructors explicitly so there is no argument count check on the class constructor.
 
-#### Parameters
+#### Configuration
+
+```xml
+<module name="FieldsCount"/>
+```
+
+##### Parameters
 
 | parameter name                           | type | default value | description                                                                |
 |------------------------------------------|------|---------------|----------------------------------------------------------------------------|
@@ -75,11 +82,63 @@ private static class SampleClass {
 }
 ```
 
+### MethodEmptyLinesCheck
+
+Since 1.5.0
+
+Verify if method or constructor contains empty lines.
+This check is to promote small methods with a single responsibility.
+
+Empty lines in methods are a bed practice.
+Usually, an empty line in a method separates logical parts.
+If the method has several logical parts, it is worth dividing it into smaller ones and expressing these logical parts in the method names.
+
+#### Configuration
+
+```xml
+<module name="MethodEmptyLines"/>
+```
+
+#### Violations
+
+##### Valid formatting
+
+```
+public void foo() {
+        System.out.pringline("1");
+        System.out.pringline("2");
+        System
+                .out
+                .pringline("3");
+}
+```
+
+##### Not valid formatting
+
+```
+public void foo() {
+
+        System.out.pringline("1");
+        System.out.pringline("2");
+        
+        System
+                .out
+                .pringline("3");
+        
+}
+```
+
 ### MethodParameterAlignmentCheck
 
 Since 1.0.0
 
-When parameters in method/constructor declaration are on multiple lines, verify if these lines are aligned.
+When parameters in method/constructor/record declaration are on multiple lines, verify if these lines are aligned.
+
+#### Configuration
+
+```xml
+<module name="MethodParameterAlignment"/>
+```
 
 #### Violations
 
@@ -108,7 +167,13 @@ Since 1.0.0
 Verify if method/constructor arguments in declaration are either a single line or they are broken up into multiple lines, 
 each on an individual line.
 
-#### Parameters
+#### Configuration
+
+```xml
+<module name="MethodParameterLines"/>
+```
+
+##### Parameters
 
 | parameter name  | type    | default value | description                  |
 |-----------------|---------|---------------|------------------------------|
@@ -143,6 +208,12 @@ public SimpleClass(String foo, String bar,
 Since 1.2.0
 
 When parameters in method/constructor call are on multiple lines, verify if these lines are aligned.
+
+#### Configuration
+
+```xml
+<module name="MethodCallParameterAlignment"/>
+```
 
 #### Violations
 
@@ -197,7 +268,19 @@ Since 1.2.0
 Verify if call method/constructor arguments are either a single line or they are broken up into multiple lines,
 each on an individual line.
 
-#### Parameters
+#### Configuration
+
+```xml
+<module name="MethodCallParameterLines"/>
+```
+
+```xml
+<module name="MethodCallParameterLines">
+  <property name="ignoreMethods" value="Map.of"/>
+</module>
+```
+
+##### Parameters
 
 | parameter name | type     | default value | description                                                                                             |
 |----------------|----------|---------------|---------------------------------------------------------------------------------------------------------|
@@ -230,7 +313,13 @@ Since 1.3.0
 
 Verify length of identifiers - method name, class name, package name, var name etc.
 
-#### Parameters
+#### Configuration
+
+```xml
+<module name="NameLength"/>
+```
+
+##### Parameters
 
 | parameter name         | type | default value | description                                            |
 |------------------------|------|---------------|--------------------------------------------------------|
@@ -301,6 +390,7 @@ To configure with custom max length:
 <module name="Checker">
   <module name="TreeWalker">
     <module name="FieldsCountCheck"/>
+    <module name="MethodEmptyLines"/>
     <module name="MethodParameterAlignment"/>
     <module name="MethodParameterLines"/>
     <module name="MethodCallParameterAlignment"/>
