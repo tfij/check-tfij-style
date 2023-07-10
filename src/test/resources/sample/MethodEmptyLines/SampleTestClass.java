@@ -2,7 +2,7 @@
 static class SampleTestClass {
 
     SampleTestClass(String f1, String f2) {
-        // sample comment
+        // sample \n \n\r comment
         this.f1 = f1;
         this.f2 = f2;
     }
@@ -25,6 +25,12 @@ static class SampleTestClass {
                 .out
                 .pringline("3");
         System.out.pringline("4");
+        String aString = "a\nb";
+        String aMultiLineString = """
+                a
+                
+                b
+                """;
         System.out.pringline("5");
     }
 

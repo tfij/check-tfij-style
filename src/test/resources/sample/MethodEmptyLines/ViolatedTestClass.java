@@ -29,6 +29,12 @@ static class SampleTestClass {
                 .out
                 .pringline("3");
         System.out.pringline("4");
+        String aString = "a\nb";
+        String aMultiLineString = """
+                a
+                
+                b
+                """;
 
         System.out.pringline("5");
     }
