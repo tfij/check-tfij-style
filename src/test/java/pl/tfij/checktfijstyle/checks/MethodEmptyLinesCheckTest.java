@@ -22,15 +22,15 @@ class MethodEmptyLinesCheckTest {
         checkstyle.assertViolation(19, 1, "Empty lines in methods are not allowed.");
         checkstyle.assertViolation(21, 1, "Empty lines in methods are not allowed.");
         checkstyle.assertViolation(25, 1, "Empty lines in methods are not allowed.");
-        checkstyle.assertViolation(32, 1, "Empty lines in methods are not allowed.");
-        checkstyle.assertViolation(37, 1, "Empty lines in methods are not allowed.");
-        checkstyle.assertViolation(41, 1, "Empty lines in methods are not allowed.");
-        checkstyle.assertViolation(42, 1, "Empty lines in methods are not allowed.");
-        checkstyle.assertViolation(55, 1, "Empty lines in methods are not allowed.");
-        checkstyle.assertViolation(64, 1, "Empty lines in methods are not allowed.");
-        checkstyle.assertViolation(73, 1, "Empty lines in methods are not allowed.");
-        checkstyle.assertViolation(80, 1, "Empty lines in methods are not allowed.");
-        checkstyle.assertViolation(82, 1, "Empty lines in methods are not allowed.");
-        checkstyle.assertViolation(83, 1, "Empty lines in methods are not allowed.");
+        checkstyle.assertViolation(38, 1, "Empty lines in methods are not allowed.");
+        checkstyle.assertViolation(43, 1, "Empty lines in methods are not allowed.");
+        checkstyle.assertViolation(47, 1, "Empty lines in methods are not allowed.");
+        checkstyle.assertViolation(48, 1, "Empty lines in methods are not allowed.");
+        checkstyle.assertViolation(61, 1, "Empty lines in methods are not allowed.");
+        checkstyle.assertViolation(70, 1, "Empty lines in methods are not allowed.");
+        checkstyle.assertViolation(79, 1, "Empty lines in methods are not allowed.");
+        checkstyle.assertViolation(86, 1, "Empty lines in methods are not allowed.");
+        checkstyle.assertViolation(88, 1, "Empty lines in methods are not allowed.");
+        checkstyle.assertViolation(89, 1, "Empty lines in methods are not allowed.");
     }
 }

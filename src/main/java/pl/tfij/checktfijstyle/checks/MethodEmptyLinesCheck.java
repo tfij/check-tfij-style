@@ -9,6 +9,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import static pl.tfij.checktfijstyle.checks.DetailASTUtil.getFirstChild;
 import static pl.tfij.checktfijstyle.checks.DetailASTUtil.streamRecursively;
 
 public class MethodEmptyLinesCheck extends AbstractCheck {
@@ -49,15 +50,17 @@ public class MethodEmptyLinesCheck extends AbstractCheck {
                 .collect(Collectors.toSet());
     }
 
-    private static List<Integer> getLineNumbers(DetailAST it) {
-        if (it.getType() == TokenTypes.COMMENT_CONTENT) {
-            int commentFirstLine = it.getLineNo();
-            int commentLength = (int) it.getText().lines().count();
-            return IntStream.range(commentFirstLine, commentFirstLine + commentLength)
-                    .boxed()
-                    .collect(Collectors.toList());
+    private static List<Integer> getLineNumbers(DetailAST ast) {
+        if (ast.getType() == TokenTypes.BLOCK_COMMENT_BEGIN) {
+            int commentFirstLine = ast.getLineNo();
+            int commentLastLine = getFirstChild(ast, TokenTypes.BLOCK_COMMENT_END).getLineNo();
+            return intRange(commentFirstLine, commentLastLine);
+        } else if (ast.getType() == TokenTypes.TEXT_BLOCK_LITERAL_BEGIN) {
+            int stringFirstLine = ast.getLineNo();
+            int stringLastLine = getFirstChild(ast, TokenTypes.TEXT_BLOCK_LITERAL_END).getLineNo();
+            return intRange(stringFirstLine, stringLastLine);
         } else {
-            return List.of(it.getLineNo());
+            return List.of(ast.getLineNo());
         }
     }
 
@@ -73,6 +76,12 @@ public class MethodEmptyLinesCheck extends AbstractCheck {
         return IntStream.range(firstLine, lastLine)
                 .filter(lineNumber -> !notEmptyLines.contains(lineNumber))
                 .sorted()
+                .boxed()
+                .collect(Collectors.toList());
+    }
+
+    private static List<Integer> intRange(int stringFirstLine, int stringLastLine) {
+        return IntStream.range(stringFirstLine, stringLastLine)
                 .boxed()
                 .collect(Collectors.toList());
     }
