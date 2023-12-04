@@ -2,7 +2,7 @@ plugins {
     java
     `maven-publish`
     signing
-    id("pl.allegro.tech.build.axion-release") version "1.15.5"
+    id("pl.allegro.tech.build.axion-release") version "1.16.0"
     checkstyle
     jacoco
 }
