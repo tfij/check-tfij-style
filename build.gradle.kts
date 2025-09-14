@@ -2,7 +2,7 @@ plugins {
     java
     `maven-publish`
     signing
-    id("pl.allegro.tech.build.axion-release") version "1.18.13"
+    id("pl.allegro.tech.build.axion-release") version "1.18.16"
     checkstyle
     jacoco
 }
@@ -15,7 +15,7 @@ repositories {
 }
 
 dependencies {
-    implementation("com.puppycrawl.tools:checkstyle:10.18.2")
+    implementation("com.puppycrawl.tools:checkstyle:10.21.1")
     compileOnly("org.projectlombok:lombok:1.18.36")
     annotationProcessor("org.projectlombok:lombok:1.18.36")
 
@@ -28,7 +28,7 @@ dependencies {
     }
     // -------------------------------------------
 
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.11.2")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.11.4")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
 }
 
