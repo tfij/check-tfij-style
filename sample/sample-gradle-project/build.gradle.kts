@@ -2,7 +2,7 @@ plugins {
     java
     `maven-publish`
     signing
-    id("pl.allegro.tech.build.axion-release") version "1.14.1"
+    id("pl.allegro.tech.build.axion-release") version "1.21.1"
     checkstyle
 }
 
@@ -21,12 +21,14 @@ repositories {
 }
 
 dependencies {
-    implementation("com.puppycrawl.tools:checkstyle:10.3.4")
+    implementation("com.puppycrawl.tools:checkstyle:13.0.0")
 
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.0")
+    testImplementation(platform("org.junit:junit-bom:6.0.2"))
+    testImplementation("org.junit.jupiter:junit-jupiter-api")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
-    checkstyle("pl.tfij:check-tfij-style:1.2.1")
+    checkstyle("pl.tfij:check-tfij-style:2.0.0")
 }
 
 tasks.getByName<Test>("test") {
@@ -41,6 +43,9 @@ tasks.getByName<Jar>("jar") {
 }
 
 java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(21))
+    }
     withJavadocJar()
     withSourcesJar()
 }
@@ -114,7 +119,12 @@ tasks.getByName<Javadoc>("javadoc") {
 }
 
 checkstyle {
-    toolVersion = "10.3.4"
-    sourceSets = listOf(project.sourceSets.main.orNull)
+    toolVersion = "13.0.0"
+    sourceSets = listOf(project.sourceSets.main.get())
 }
 
+tasks.withType<Checkstyle>().configureEach {
+    javaLauncher.set(javaToolchains.launcherFor {
+        languageVersion.set(JavaLanguageVersion.of(21))
+    })
+}
