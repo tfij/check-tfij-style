@@ -2,7 +2,7 @@ plugins {
     java
     `maven-publish`
     signing
-    id("pl.allegro.tech.build.axion-release") version "1.18.16"
+    id("pl.allegro.tech.build.axion-release") version "1.21.1"
     checkstyle
     jacoco
 }
@@ -15,9 +15,9 @@ repositories {
 }
 
 dependencies {
-    implementation("com.puppycrawl.tools:checkstyle:10.21.1")
-    compileOnly("org.projectlombok:lombok:1.18.34")
-    annotationProcessor("org.projectlombok:lombok:1.18.34")
+    implementation("com.puppycrawl.tools:checkstyle:13.0.0")
+    compileOnly("org.projectlombok:lombok:1.18.36")
+    annotationProcessor("org.projectlombok:lombok:1.18.36")
 
     // https://github.com/google/guava/issues/6825
     modules {
@@ -28,8 +28,10 @@ dependencies {
     }
     // -------------------------------------------
 
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.11.4")
+    testImplementation(platform("org.junit:junit-bom:6.0.2"))
+    testImplementation("org.junit.jupiter:junit-jupiter-api")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
 tasks.getByName<Test>("test") {
@@ -60,6 +62,9 @@ tasks.getByName<Jar>("jar") {
 }
 
 java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(21))
+    }
     withJavadocJar()
     withSourcesJar()
 }
@@ -133,6 +138,12 @@ tasks.getByName<Javadoc>("javadoc") {
 }
 
 checkstyle {
-    toolVersion = "10.3.4"
-    sourceSets = listOf(project.sourceSets.main.orNull)
+    toolVersion = "13.0.0"
+    sourceSets = listOf(project.sourceSets.main.get())
+}
+
+tasks.withType<Checkstyle>().configureEach {
+    javaLauncher.set(javaToolchains.launcherFor {
+        languageVersion.set(JavaLanguageVersion.of(21))
+    })
 }
