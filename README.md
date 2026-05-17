@@ -12,6 +12,7 @@ A set of additional checks to use with [checkstyle](https://checkstyle.sourcefor
   - [MethodCallParameterLinesCheck](#MethodCallParameterLinesCheck)
   - [NameLengthCheck](#NameLengthCheck)
 * [Configuration](#Configuration)
+  - [Requirements](#Requirements)
   - [Maven dependency](#Maven-dependency)
   - [Example checkstyle configuration](#Example-checkstyle-configuration)
   - [Example checkstyle maven plugin configuration](#Example-checkstyle-maven-plugin-configuration)
@@ -370,13 +371,20 @@ To configure with custom max length:
 
 ## Configuration
 
+### Requirements
+
+Version 2.0.0 is built for Checkstyle 13.x and requires Java 21 or newer for the Checkstyle runtime.
+
+Projects may still compile and run their application code with an older Java version, but the Checkstyle execution that loads this library must run on Java 21 or newer.
+If you need to run Checkstyle on Java 17, use the latest 1.x version of this library with a Checkstyle version that supports Java 17.
+
 ### Maven dependency
 
 ```xml
 <dependency>
     <groupId>pl.tfij</groupId>
     <artifactId>check-tfij-style</artifactId>
-    <version>1.3.0</version>
+    <version>2.0.0</version>
 </dependency>
 ```
 
@@ -410,7 +418,7 @@ you have to add the library as a maven dependency to the plugin.
 <plugin>
     <groupId>org.apache.maven.plugins</groupId>
     <artifactId>maven-checkstyle-plugin</artifactId>
-    <version>3.2.0</version>
+    <version>3.6.0</version>
     <configuration>
         <configLocation>src/main/resources/checkstyle.xml</configLocation>
         <encoding>UTF-8</encoding>
@@ -429,9 +437,14 @@ you have to add the library as a maven dependency to the plugin.
     </executions>
     <dependencies>
         <dependency>
+            <groupId>com.puppycrawl.tools</groupId>
+            <artifactId>checkstyle</artifactId>
+            <version>13.0.0</version>
+        </dependency>
+        <dependency>
             <groupId>pl.tfij</groupId>
             <artifactId>check-tfij-style</artifactId>
-            <version>1.5.1</version>
+            <version>2.0.0</version>
         </dependency>
     </dependencies>
 </plugin>
@@ -446,7 +459,11 @@ plugins {
 }
 
 dependencies {
-    checkstyle("pl.tfij:check-tfij-style:1.5.1")
+    checkstyle("pl.tfij:check-tfij-style:2.0.0")
+}
+
+checkstyle {
+    toolVersion = "13.0.0"
 }
 ```
 
