@@ -44,7 +44,7 @@ public class TestCheckstyle {
 
         var cfg = new DefaultConfiguration("configuration");
         // make sure that the tests always run with this charset
-        cfg.addAttribute("charset", StandardCharsets.UTF_8.name());
+        cfg.addProperty("charset", StandardCharsets.UTF_8.name());
         cfg.addChild(tw);
 
         return cfg;

@@ -85,7 +85,7 @@ public class MethodCallParameterLinesCheck extends AbstractCheck {
 
     @RequiredArgsConstructor
     @EqualsAndHashCode
-    private static class MethodId {
+    private static final class MethodId {
         private final String className;
         private final String methodName;
 
