@@ -17,13 +17,28 @@ jobs:
     permissions:
       contents: read
     steps:
-      - uses: actions/checkout@v6 
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.release.tag_name }}
+          fetch-depth: 0
       - uses: gradle/actions/wrapper-validation@v5
       - name: Set up JDK 21
         uses: actions/setup-java@v5
         with:
           java-version: '21'
           distribution: 'temurin'
+      - name: Verify axion release version
+        run: |
+          version="$(./gradlew currentVersion --quiet -Prelease.quiet)"
+          tag_version="${GITHUB_REF_NAME#v}"
+          if [ "$version" != "$tag_version" ]; then
+            echo "Axion version '$version' does not match release tag '$GITHUB_REF_NAME'."
+            exit 1
+          fi
+          if [[ "$version" == *SNAPSHOT ]]; then
+            echo "Refusing to publish snapshot version '$version'."
+            exit 1
+          fi
       - name: Publish to maven central
         run: ./gradlew publishSonatypePublicationToMavenRepository
         env:  
@@ -32,3 +47,13 @@ jobs:
           SIGNING_GPG_KEY_ID: ${{ secrets.GPG_KEY_ID }}
           SIGNING_GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
           SIGNING_GPG_PRIVATE_KEY_PASSWORD: ${{ secrets.GPG_PRIVATE_KEY_PASSWORD }}
+      - name: Upload deployment to Central Portal
+        run: |
+          token="$(printf '%s:%s' "$SONATYPE_USERNAME" "$SONATYPE_PASSWORD" | base64 | tr -d '\n')"
+          curl --fail --show-error --silent \
+            --request POST \
+            --header "Authorization: Bearer ${token}" \
+            "https://ossrh-staging-api.central.sonatype.com/manual/upload/defaultRepository/pl.tfij?publishing_type=automatic"
+        env:
+          SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
+          SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
