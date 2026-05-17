@@ -47,6 +47,20 @@ jobs:
           fi
         env:
           RELEASE_TAG: ${{ github.event.release.tag_name }}
+      - name: Verify Sonatype credentials
+        run: |
+          if [ -z "${SONATYPE_USERNAME:-}" ] || [ -z "${SONATYPE_PASSWORD:-}" ]; then
+            echo "SONATYPE_USERNAME or SONATYPE_PASSWORD GitHub secret is missing."
+            exit 1
+          fi
+          token="$(printf '%s:%s' "$SONATYPE_USERNAME" "$SONATYPE_PASSWORD" | base64 | tr -d '\n')"
+          curl --fail --show-error --silent \
+            --header "Authorization: Bearer ${token}" \
+            "https://ossrh-staging-api.central.sonatype.com/manual/search/repositories?ip=any" \
+            > /dev/null
+        env:
+          SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
+          SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
       - name: Publish to maven central
         run: ./gradlew publishSonatypePublicationToMavenRepository
         env:  
