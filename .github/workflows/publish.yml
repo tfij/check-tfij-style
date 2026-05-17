@@ -27,18 +27,26 @@ jobs:
         with:
           java-version: '21'
           distribution: 'temurin'
+      - name: Prepare Gradle wrapper
+        run: ./gradlew --version > /dev/null
       - name: Verify axion release version
         run: |
-          version="$(./gradlew currentVersion --quiet -Prelease.quiet)"
-          tag_version="${GITHUB_REF_NAME#v}"
+          version="$(./gradlew currentVersion --quiet -Prelease.quiet | grep -E '^[0-9]+[.][0-9]+[.][0-9]+(-[^[:space:]]+)?$' | tail -n 1)"
+          tag_version="${RELEASE_TAG#v}"
+          if [ -z "$version" ]; then
+            echo "Could not read axion release version."
+            exit 1
+          fi
           if [ "$version" != "$tag_version" ]; then
-            echo "Axion version '$version' does not match release tag '$GITHUB_REF_NAME'."
+            echo "Axion version '$version' does not match release tag '$RELEASE_TAG'."
             exit 1
           fi
           if [[ "$version" == *SNAPSHOT ]]; then
             echo "Refusing to publish snapshot version '$version'."
             exit 1
           fi
+        env:
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
       - name: Publish to maven central
         run: ./gradlew publishSonatypePublicationToMavenRepository
         env:  
