@@ -15,7 +15,7 @@ repositories {
 }
 
 dependencies {
-    implementation("com.puppycrawl.tools:checkstyle:13.7.0")
+    implementation("com.puppycrawl.tools:checkstyle:13.8.0")
     compileOnly("org.projectlombok:lombok:1.18.46")
     annotationProcessor("org.projectlombok:lombok:1.18.46")
 
