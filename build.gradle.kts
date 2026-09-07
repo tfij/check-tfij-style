@@ -16,8 +16,8 @@ repositories {
 
 dependencies {
     implementation("com.puppycrawl.tools:checkstyle:14.0.0")
-    compileOnly("org.projectlombok:lombok:1.18.46")
-    annotationProcessor("org.projectlombok:lombok:1.18.46")
+    compileOnly("org.projectlombok:lombok:1.18.48")
+    annotationProcessor("org.projectlombok:lombok:1.18.48")
 
     // https://github.com/google/guava/issues/6825
     modules {
